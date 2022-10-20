@@ -8,7 +8,9 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+
 char webpage[] = "HTTP/1.1 200 OK\nServer: nweb/%d.0\nContent-Length: %ld\nConnection: close\nContent-Type: %s\n\n";
+
 
 int main(void){
     struct sockaddr_in server_addr, client_addr;
@@ -19,6 +21,7 @@ int main(void){
     int on = 1;
     
     fd_server = socket(AF_INET, SOCK_STREAM, 0);
+    
     if(fd_server < 0){
         perror("Socket fd");
         exit(1);
@@ -43,33 +46,26 @@ int main(void){
 
     while(1){
         fd_client = accept(fd_server, (struct struct_addr *)&client_addr, &sin_len);
-
         if(fd_client == -1){
             perror("Connection failed....\n");
             continue;
         }
-
         printf("Got client connection...\n");
-
+    
         if(!fork()){
            /* child process */
            close(fd_server);
            memset(buf, 0, 2048);
            read(fd_client, buf, 2047);
-
            printf("%s\n", buf);
-
            write(fd_client, webpage, sizeof(webpage) -1);
-
            close(fd_client);
            printf("Closing...");
            exit(0);
         }
         /* parent process */
         close(fd_client);
-
     }
-
 }
 
 
