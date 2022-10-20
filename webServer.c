@@ -9,7 +9,15 @@
 #include <arpa/inet.h>
 
 
-char webpage[] = "HTTP/1.1 200 OK\nServer: nweb/%d.0\nContent-Length: %ld\nConnection: close\nContent-Type: %s\n\n";
+//char webpage[] = "HTTP/1.1 200 OK\nServer: nweb/%d.0\nContent-Length: %ld\nConnection: close\nContent-Type: %s\n\n";
+char webpage[] = 
+"HTTP/1.1 200 OK\r\n"
+"Content-Type: text\html; charset=UTF-8\r\n\r\n"
+"<!DOCTYPE html>\r\n"
+"<html><head><title>ShellWaveX</title>\r\n"
+"<style>body {background-color: #FFFF00 }</style></head>\r\n"
+"<body><center><h1>Hello World!</h1><br>\r\n"
+"</body></html>\r\n";
 
 
 int main(void){
